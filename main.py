@@ -8,6 +8,13 @@ from functions import remove_bg, find_levels, sculpt
 
 from PIL import Image
 
+def compressing(file_name):
+    img = Image.open(file_name)
+    img = img.resize((1000,1000),Image.LANCZOS)
+    #img = img.rotate(angle=-90) #if your image(that you take by your phone) is landscape,this line should be commented
+    img.save('compressed.jpg')
+    return 'compressed.jpg'
+
 
 def convert(file_name, output_path, params):
     with open("config.json") as jsonfile:
@@ -20,11 +27,14 @@ def convert(file_name, output_path, params):
     print(lvls)
 
     
-    if params["image_scale"] == 'auto':
-        params["image_scale"] = 800 / max(img.shape[0], img.shape[1])
+    #if params["image_scale"] == 'auto':
+    #    params["image_scale"] = 800 / max(img.shape[0], img.shape[1])
 
-    scale_x = int(img.shape[1] * float(params["image_scale"]))
-    scale_y = int(img.shape[0] * float(params["image_scale"]))
+    #scale_x = int(img.shape[1] * float(params["image_scale"]))
+    #scale_y = int(img.shape[0] * float(params["image_scale"]))
+    scale_x = 1704 #the exact value(in pixel) is 1704.5
+    scale_y = 2273 #the exact value(in pixel) is 2272.7
+    
     img = cv2.resize(img, (scale_x, scale_y), interpolation=cv2.INTER_LINEAR)
 
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -45,4 +55,4 @@ if __name__ == "__main__":
         "image_scale": 'auto', # or a float number like 0.2
         "hatch_angle": 45
     }
-    convert("Taghirad.jpg", f"outputs/{seconds}", params)
+    convert(compressing("Taghirad.jpg"), f"outputs/{seconds}", params)
