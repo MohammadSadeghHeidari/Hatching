@@ -320,7 +320,7 @@ def _build_hatch(
 
             lines = [
                 _build_diagonal_hatch(
-                    delta_factors[i] * hatch_pitch,
+                    delta_factors[i]*2.5 * hatch_pitch,# *1.5(for decrease lines of svg file)
                     offset_factors[i] * hatch_pitch,
                     w,
                     h,
