@@ -6,6 +6,8 @@ from datetime import datetime
 from hatching import hatch
 from functions import remove_bg, find_levels, sculpt
 
+from PIL import Image
+
 
 def convert(file_name, output_path, params):
     with open("config.json") as jsonfile:
